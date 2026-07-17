@@ -1,0 +1,17 @@
+# secrets / local state
+agent/config.json
+agent/pairing-qr.png
+
+# deps & builds
+node_modules/
+agent/.venv/
+agent/build/
+agent/dist/
+tools/cloudflared.exe
+__pycache__/
+app/build/
+app/.dart_tool/
+*.log
+scripts/frame*.jpg
+scripts/viewer*.jpg
+scripts/desktop*.jpg
