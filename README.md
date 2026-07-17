@@ -1,5 +1,10 @@
 # Rein
 
+[![Latest release](https://img.shields.io/github/v/release/loueylahwel/rein?label=release)](https://github.com/loueylahwel/rein/releases/latest)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%E2%80%A2%20Android-blue)](#setup-2-minutes)
+[![No accounts](https://img.shields.io/badge/cloud-none-success)](#how-it-works)
+
 Your PC, on a short leash. Control your Windows PC from your Android phone
 over your local network — no accounts, no cloud, nothing to configure.
 
