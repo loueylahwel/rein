@@ -82,7 +82,7 @@ Events are pushed without an `id`:
 |---|---|---|
 | `ping` | – | `{ pong, ts }` |
 | `sys.info` | – | `{ name, platform, cpu_percent, mem_total, mem_used, uptime, screen:{w,h} }` |
-| `sys.exec` | `cmd, cwd?, timeout?` (s, default 30) | `{ stdout, stderr, code }` |
+| `sys.exec` | `command, cwd?, timeout?` (s, default 30) | `{ stdout, stderr, code }` |
 | `sys.ps` | – | `{ processes: [{pid, name, mem}] }` (top 200 by memory) |
 | `sys.kill` | `pid` | `{ killed }` |
 | `fs.list` | `path?` (empty = drives/root) | `{ path, entries: [{name, path, type: "dir"\|"file"\|"drive", size, mtime}] }` |

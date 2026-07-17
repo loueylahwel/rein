@@ -708,8 +708,11 @@ class Agent:
         return await asyncio.to_thread(sys_info)
 
     async def h_sys_exec(self, msg):
+        # The shell text rides in "command" — the envelope key "cmd" is the
+        # routing field ("sys.exec"), so a param named "cmd" would collide.
         return await asyncio.to_thread(
-            run_command, msg.get("cmd", ""), msg.get("cwd"), msg.get("timeout", 30)
+            run_command, msg.get("command", ""),
+            msg.get("cwd"), msg.get("timeout", 30),
         )
 
     async def h_sys_ps(self, msg):

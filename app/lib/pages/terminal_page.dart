@@ -51,7 +51,7 @@ class _TerminalPageState extends State<TerminalPage> {
     _scrollToEnd();
     try {
       final data = await widget.client.request('sys.exec', {
-        'cmd': cmd,
+        'command': cmd,
         'cwd': _cwdCtrl.text.trim(),
         'timeout': 60,
       });

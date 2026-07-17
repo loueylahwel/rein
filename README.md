@@ -15,12 +15,6 @@ over your local network — no accounts, no cloud, nothing to configure.
 - **Power**: lock / sleep / restart / shutdown (with confirmations)
 - **Shell** commands and process list/kill
 
-## Screenshots
-
-| Dashboard | Screen control | PC camera |
-|---|---|---|
-| ![Dashboard — connected, system stats, controls](docs/screenshots/dashboard.png) | ![Screen control — touchpad cursor on the PC screen](docs/screenshots/screen-control.png) | ![PC camera — webcam streamed to the phone](docs/screenshots/pc-camera.png) |
-
 ## Setup (2 minutes)
 
 **On your PC (Windows 10/11):**
