@@ -15,3 +15,4 @@ app/.dart_tool/
 scripts/frame*.jpg
 scripts/viewer*.jpg
 scripts/desktop*.jpg
+app/android/build/
