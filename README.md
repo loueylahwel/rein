@@ -1,8 +1,7 @@
 # Rein
 
 Your PC, on a short leash. Control your Windows PC from your Android phone
-over your local network — no accounts, no cloud, no QR codes, no pairing
-codes, nothing to configure.
+over your local network — no accounts, no cloud, nothing to configure.
 
 - **Screen streaming** with live cursor — drag to move, tap to click
 - **PC webcam view** on your phone
@@ -29,7 +28,7 @@ codes, nothing to configure.
 3. Open Rein → **Find my PC** → your PC's name pops up → tap it
 4. Connected. From now on the app reconnects by itself every time.
 
-No code, no QR, ever: the PC broadcasts a tiny "I'm here" beacon that the
+the PC broadcasts a tiny "I'm here" beacon that the
 app listens for. If the PC's IP changes, the app re-finds it by name.
 
 > **Security note:** tap-to-connect with no code means *anyone on your
