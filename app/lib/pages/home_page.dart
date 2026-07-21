@@ -164,15 +164,25 @@ class _HomePageState extends State<HomePage> {
     }
 
     var current = device;
-    var result = await tryConnect(current);
-    if (result == null) {
-      // The saved address is stale (e.g. the PC got a new IP after a DHCP
-      // renewal): discover PCs on the LAN once and retry the same PC,
-      // matched by its name, at the new address.
+    PairResult? result;
+    if (auto) {
+      // Recovery after a network switch: the saved address is almost
+      // certainly stale, so rediscover FIRST — discovery is fast (~4s) and
+      // reliable, while a dead address just burns a 5s timeout per attempt.
       final rediscovered = await _rediscover(current);
-      if (rediscovered != null) {
-        current = rediscovered;
-        result = await tryConnect(current);
+      if (rediscovered != null) current = rediscovered;
+      result = await tryConnect(current);
+    } else {
+      result = await tryConnect(current);
+      if (result == null) {
+        // The saved address is stale (e.g. the PC got a new IP after a DHCP
+        // renewal): discover PCs on the LAN once and retry the same PC,
+        // matched by its name, at the new address.
+        final rediscovered = await _rediscover(current);
+        if (rediscovered != null) {
+          current = rediscovered;
+          result = await tryConnect(current);
+        }
       }
     }
     if (result == null) {
@@ -215,10 +225,16 @@ class _HomePageState extends State<HomePage> {
 
   /// Runs LAN discovery once and, when a PC with the same name as [device]
   /// answers, updates the saved entry to its current address. Returns the
-  /// updated device, or null when the PC was not found.
+  /// updated device, or null when the PC was not found. Never throws —
+  /// discovery can fail while the network is still transitioning.
   Future<SavedDevice?> _rediscover(SavedDevice device) async {
     if (device.name.isEmpty) return null;
-    final found = await discoverPcs();
+    List<DiscoveredPc> found;
+    try {
+      found = await discoverPcs();
+    } catch (_) {
+      return null;
+    }
     if (!mounted) return null;
     final name = device.name.toLowerCase();
     final matches =
@@ -542,14 +558,32 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.white70,
                         ),
                       )
-                    : FilledButton.icon(
-                        onPressed: () => _connect(device),
-                        icon: const Icon(Icons.refresh, size: 18),
-                        label: const Text('Reconnect'),
-                        style: FilledButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: const Color(0xFF0D9488),
-                        ),
+                    : Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          FilledButton.icon(
+                            onPressed: () => _connect(device),
+                            icon: const Icon(Icons.refresh, size: 18),
+                            label: const Text('Reconnect'),
+                            style: FilledButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: const Color(0xFF0D9488),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          // The way out when the saved address is hopeless
+                          // (e.g. new network): the plain PC search, no
+                          // deleting the saved device needed.
+                          OutlinedButton.icon(
+                            onPressed: _addDevice,
+                            icon: const Icon(Icons.wifi_find, size: 18),
+                            label: const Text('Find PC'),
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              side: const BorderSide(color: Colors.white70),
+                            ),
+                          ),
+                        ],
                       ),
             ],
           ),
